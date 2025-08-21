@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Indo para o Painel</title>
+  <meta name="robots" content="noindex">
+  <!-- Fallback de redirect, caso o JS seja bloqueado -->
+  <meta http-equiv="refresh" content="0; url=https://lookerstudio.google.com/reporting/c944febf-5dec-423b-a4f4-364009fb0ce0/page/ucXUF">
+  <style>
+    body{font-family:system-ui,Arial,sans-serif;margin:24px}
+    .msg{opacity:.7}
+  </style>
+</head>
+<body>
+  <p class="msg">Redirecionando para o painel… Se não abrir automaticamente, <a id="fallback" href="#">clique aqui</a>.</p>
+
+  <!-- 1) REGISTRO NA PLANILHA (GET via imagem invisível) -->
+  <img
+    id="logger"
+    src=""
+    alt=""
+    style="display:none"
+    referrerpolicy="no-referrer"
+  >
+
+  <script>
+    // ====== CONFIGURÁVEIS ======
+    const DESTINO = "https://lookerstudio.google.com/reporting/c944febf-5dec-423b-a4f4-364009fb0ce0/page/ucXUF";
+    // URL /exec SEM "/a/..."
+    const WEBAPP = "https://script.google.com/macros/s/AKfycbytVTNs4p5lycqF2YHatY50rspFfYYnn7gvYsSPXL9aJKL-PbpgpEmFA6V_mWa0ma1L/exec";
+
+    // Parâmetros que você quer gravar (ajuste à vontade)
+    const painel = "Painel_Logistico";
+    const user   = "Marcelo"; // pode deixar fixo ou vazio
+
+    // ====== NÃO PRECISA ALTERAR ABAIXO ======
+    // 1) Dispara o log com cache-buster
+    const logger = document.getElementById('logger');
+    const qs = new URLSearchParams({
+      painel,
+      user,
+      t: Date.now().toString() // evita cache
+    });
+    logger.src = WEBAPP + "?" + qs.toString();
+
+    // 2) Redireciona no topo (sai de iframes) e ajusta link de fallback
+    document.getElementById('fallback').href = DESTINO;
+    try { window.top.location.href = DESTINO; }
+    catch (e) { window.location.href = DESTINO; }
+  </script>
+</body>
+</html>
